@@ -3,15 +3,15 @@
   "description": "This incident type refers to an issue where Istio latency has exceeded the 99th percentile, indicating that the slowest 1% of requests are taking longer than 1 second to complete. This can cause performance issues and impact the user experience. It requires immediate attention and investigation to resolve the issue and prevent any further impact.",
   "params": [
     {
-      "name": "DEPLOYMENT_NAME",
-      "value": ""
-    },
-    {
-      "name": "POD_NAME",
-      "value": ""
-    },
-    {
       "name": "ISTIO_MIXER_POD_NAME",
+      "value": ""
+    },
+    {
+      "name": "DESIRED_REPLICAS",
+      "value": ""
+    },
+    {
+      "name": "DEPLOYMENT_NAME",
       "value": ""
     },
     {
@@ -27,7 +27,7 @@
       "value": ""
     },
     {
-      "name": "DESIRED_REPLICAS",
+      "name": "POD_NAME",
       "value": ""
     },
     {
@@ -188,7 +188,7 @@
       "name": "cell_25",
       "type": "OP_LANG",
       "enabled": true,
-      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | random=1 | limit=1 | invoke_istio_resource_check($DEPLOYMENT_NAME, $NAMESPACE)"
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | random=1 | limit=1 | invoke_resource_check($DEPLOYMENT_NAME, $NAMESPACE)"
     },
     {
       "name": "cell_26",
@@ -200,7 +200,7 @@
       "name": "cell_27",
       "type": "OP_LANG",
       "enabled": true,
-      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | random=1 | limit=1 | invoke_scale_deployment($DEPLOYMENT_NAME, $DESIRED_REPLICAS)"
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | random=1 | limit=1 | invoke_scale_deployment($DESIRED_REPLICAS, $DEPLOYMENT_NAME)"
     }
   ]
 }
